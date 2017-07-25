@@ -1,17 +1,12 @@
 package com.preparation.javaio;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LineWithMaxWordInFile {
 	
 	
-	public static void main(String[] args) {
-		
-	}
 	
 	private void getLineWithMaxWord(File file)
 	{
@@ -26,5 +21,11 @@ public class LineWithMaxWordInFile {
 		
 		return 1;
 	}
+	
+	public static void main(String[] args) {
+		
+	Map<Integer,Integer> map= new HashMap<Integer,Integer>();
+	map.put(1, 2);
+ 	}
 
 }
