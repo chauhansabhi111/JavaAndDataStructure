@@ -1,7 +1,5 @@
 package com.preparation.datastructure.stack;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -19,13 +17,16 @@ public class ExpressionValidationUsingStack {
 	
 	public static void main(String[] args) 
 	{
-		expression="{}[]";
-		System.out.println(isExpressionValid(expression));
+		expression="{sdfsdfsdfg}[gfhfhgfhgfhgfhgfhgfhfghgfh]";
+		System.out.println(expression.length());
+		System.out.println(isExpressionValid(expression,2));
 	}
-	private static boolean isExpressionValid(String expression)
+	private static int isExpressionValid(String expression,int position)
 	{
 		String[] tokens=null;
-		Map<String,String> map = new HashMap<String,String>();
+		int paranthesisCount=0;
+		int paranthesisCount1=0;
+		int paranthesisIndex=0;
 		Stack<String> stack= new Stack<String>();
 		if(expression!=null && !expression.isEmpty() )
 		{
@@ -37,38 +38,80 @@ public class ExpressionValidationUsingStack {
 				{
 				case "{":
 					stack.push(string);
+					if(position!=paranthesisCount)
+					{
+						paranthesisCount++;
+						break;
+					}
 					break;
 				case "[":
 					stack.push(string);
+					if(position!=paranthesisCount)
+					{
+						paranthesisCount++;
+						break;
+					}
 					break;
 				case "(":
 					stack.push(string);
+					if(position!=paranthesisCount)
+					{
+						paranthesisCount++;
+						break;
+					}
 					break;
 				case ")":
+					if(paranthesisCount1==0)
+					{
+						paranthesisIndex=i;
+					}
 					if(stack.peek().equals("("))
 					{
 						stack.pop();
 					}
+					if(position!=paranthesisCount1)
+					{
+						paranthesisCount--;
+						break;
+					}
 					break;
 				case "]":
+					if(paranthesisCount1==0)
+					{
+						paranthesisIndex=i;
+					}
 					if(stack.peek().equals("["))
 					{
 						stack.pop();
 					}
+					if(position!=paranthesisCount1)
+					{
+						paranthesisCount--;
+						break;
+					}
 					break;
 				case "}":
+					if(paranthesisCount1==0)
+					{
+						paranthesisIndex=i;
+					}
 					if(stack.peek().equals("{"))
 					{
 						stack.pop();
+					}
+					if(position!=paranthesisCount1)
+					{
+						paranthesisCount--;
+						break;
 					}
 					break;
 				}
 			}
 			if(stack.size()==0)
 			{
-				return true;
+				return paranthesisIndex;
 			}
 		}
-		return false;
+		return -1;
 	}
 }
