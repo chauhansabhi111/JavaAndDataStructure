@@ -17,15 +17,15 @@ public class ExpressionValidationUsingStack {
 	
 	public static void main(String[] args) 
 	{
-		expression="{sdfsdfsdfg}[gfhfhgfhgfhgfhgfhgfhfghgfh]";
+		expression="[[[{{{(((aaaaaaaaaa)))cvcxxcxvfbfdghgfbfdbfdgbfdgfd}xcvxc}xcvxcv}xcvxcv]xcvxc]xcvxcv]";
 		System.out.println(expression.length());
-		System.out.println(isExpressionValid(expression,2));
+		System.out.println(isExpressionValid(expression,4));
 	}
 	private static int isExpressionValid(String expression,int position)
 	{
 		String[] tokens=null;
-		int paranthesisCount=0;
-		int paranthesisCount1=0;
+		int openParanthesisCount=0;
+		int closeParanthesisCount=0;
 		int paranthesisIndex=0;
 		Stack<String> stack= new Stack<String>();
 		if(expression!=null && !expression.isEmpty() )
@@ -38,71 +38,74 @@ public class ExpressionValidationUsingStack {
 				{
 				case "{":
 					stack.push(string);
-					if(position!=paranthesisCount)
+					if(position!=openParanthesisCount)
 					{
-						paranthesisCount++;
+						openParanthesisCount++;
 						break;
 					}
 					break;
 				case "[":
 					stack.push(string);
-					if(position!=paranthesisCount)
+					if(position!=openParanthesisCount)
 					{
-						paranthesisCount++;
+						openParanthesisCount++;
 						break;
 					}
 					break;
 				case "(":
 					stack.push(string);
-					if(position!=paranthesisCount)
+					if(position!=openParanthesisCount)
 					{
-						paranthesisCount++;
+						openParanthesisCount++;
 						break;
 					}
 					break;
 				case ")":
-					if(paranthesisCount1==0)
-					{
-						paranthesisIndex=i;
-					}
 					if(stack.peek().equals("("))
 					{
 						stack.pop();
 					}
-					if(position!=paranthesisCount1)
+					if(position!=closeParanthesisCount)
 					{
-						paranthesisCount--;
+						closeParanthesisCount++;
 						break;
+					}
+					if(closeParanthesisCount==openParanthesisCount && closeParanthesisCount==position)
+					{
+						paranthesisIndex=i;
+						position=-1;
 					}
 					break;
 				case "]":
-					if(paranthesisCount1==0)
-					{
-						paranthesisIndex=i;
-					}
 					if(stack.peek().equals("["))
 					{
 						stack.pop();
 					}
-					if(position!=paranthesisCount1)
+					if(position!=closeParanthesisCount)
 					{
-						paranthesisCount--;
+						closeParanthesisCount++;
 						break;
+					}
+					if(closeParanthesisCount==openParanthesisCount && closeParanthesisCount==position)
+					{
+						paranthesisIndex=i;
+						position=-1;
 					}
 					break;
 				case "}":
-					if(paranthesisCount1==0)
-					{
-						paranthesisIndex=i;
-					}
 					if(stack.peek().equals("{"))
 					{
 						stack.pop();
 					}
-					if(position!=paranthesisCount1)
+					if(position!=closeParanthesisCount)
 					{
-						paranthesisCount--;
+						closeParanthesisCount++;
 						break;
+					}
+					if(closeParanthesisCount==openParanthesisCount && closeParanthesisCount==position)
+					{
+						paranthesisIndex=i;
+						position=-1;
 					}
 					break;
 				}
